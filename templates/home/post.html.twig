@@ -20,15 +20,13 @@
         <div class="card-body">
             <h5 class="card-title">Rédigé par : {{ post.username }}</h5>
             <h6 class="card-subtitle text-muted">Mis à jour le : {{ post.updatedAt | date("d/m/Y") }}</h6>
-        </div>
-        
-        <!-- edit buttons -->
-        <div class="card-footer">
+            <!-- edit buttons -->
             {% if is_granted(minRoleToEdit) or post.username == currentUser %}
                 <h6><a class="card-link" href="{{ path("edit_post", {id: post.id}) }}"><i class="bi bi-pencil"></i> Editer</a></h6>
+                {#
                 {% if post.status == 1 %}
                 <h6><a class="card-link" href="{{ path("admin_postsId", {id: post.id}) }}"><i class="bi bi-trash"></i> Supprimer</a></h6>
-                {% endif %}
+                {% endif %}#}
             {% endif %}
         </div>
         

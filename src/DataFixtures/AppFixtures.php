@@ -136,7 +136,7 @@ class AppFixtures extends Fixture
     public function comments(ObjectManager $manager): void
     {
         for ($i = 0; $i < $this->fixturesService->numberOfPosts(); $i++) {
-            for ($j = 0; $j < 14; $j++) {
+            for ($j = 0; $j < $this->fixturesService->numberOfComments(); $j++) {
                 $comments = new Comment();
                 $comments
                     ->setPost($this->objects['post'][$i])

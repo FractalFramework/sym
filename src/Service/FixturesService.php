@@ -24,6 +24,7 @@ class FixturesService
     private string $password = 'd';
     private int $numberOfPosts = 1;
     private int $numberOfUsers = 1;
+    private int $numberOfComments = 1;
     public array $users = [];
     public array $posts = [];
 
@@ -74,6 +75,11 @@ class FixturesService
     public function numberOfUsers()
     {
         return $this->numberOfUsers;
+    }
+
+    public function numberOfComments()
+    {
+        return $this->numberOfComments;
     }
 
     public function adminName()
