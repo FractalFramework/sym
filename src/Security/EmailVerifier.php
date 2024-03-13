@@ -39,7 +39,7 @@ class EmailVerifier
         $this->mailService->send2(
             $from = 'users@posts.com',
             $to = $user->getEmail(),
-            $subject = 'SnowPosts : confirmez votre Email',
+            $subject = 'Posts : confirmez votre Email',
             $template = 'security/confirmation_email',
             $context
         );

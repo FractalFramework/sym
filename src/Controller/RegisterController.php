@@ -49,7 +49,7 @@ class RegisterController extends AbstractController
                 (new TemplatedEmail())
                     ->from(new Address('users@posts.com', 'posts'))
                     ->to($user->getEmail())
-                    ->subject('SnowPosts : confirmez votre Email')
+                    ->subject('Posts : confirmez votre Email')
                     ->htmlTemplate('security/confirmation_email.html.twig')
             );
 
