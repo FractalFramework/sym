@@ -1,0 +1,9 @@
+{% extends 'admin/user.html.twig' %}
+
+{% block avatar %}
+    {% for key,avatar in avatars %}
+    <a href="{{ path("admin_avatar_select", {avatar: key}) }}">
+        <img src="/avatars/{{ asset(avatar) }}" width="80px"/>
+    </a> 
+    {% endfor %}
+{% endblock %}

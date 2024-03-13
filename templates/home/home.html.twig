@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% set minRoleToEdit = 'ROLE_ADMIN' %}
+{% if user is defined %}
+    {% if user.username is defined %}
+        {% set currentUser = user.username %}
+    {% else %}
+        {% set currentUser = '' %}
+    {% endif %}
+{% endif %}
+
+{% block title %}Posts!{% endblock %}
+
+{% block body %}
+    
+{% for message in app.flashes('home-flash') %}
+<div class="alert alert-success">{{ message | raw }}</div>
+{% endfor %}
+
+<div class="example-wrapper row">
+    <h1>Bienvenue sur SnowPosts</h1>
+    
+    <h4>Dernières publications</h4>
+
+    {% for post in posts %}
+    
+    <article class="col col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12 col-12">
+    <div class="card border-light mb-3">
+        <div class="card mb-3">
+            <h3 class="card-header" style="height:130px;">{{ post.title | raw}}</h3>
+            <div class="card-body">
+                <h5 class="card-subtitle">Rédigé par : {{ post.username }}</h5>
+                <h6 class="card-date text-muted">Mis à jour le : {{ post.updatedAt | date("d/m/Y") }}</h6>
+            </div>
+            <div class="card-footer text-muted">
+                {% if is_granted(minRoleToEdit) or post.username == currentUser  %}
+                    <a class="card-link" href="{{ path("edit_post", {id: post.id}) }}"><i class="bi bi-pencil"></i> Editer</a>
+                    {#{% if is_granted('ROLE_ADMIN') %}#}
+                        {% if post.status == 1 %}
+                        <a class="card-link" href="{{ path("admin_postsId", {id: post.id}) }}"><i class="bi bi-trash"></i> Supprimer</a>
+                        {% else %}
+                        <a class="card-link" href="{{ path("admin_postsId", {id: post.id}) }}"><i class="bi bi-eraser"></i> Publier</a>
+                        {% endif %}
+                    {#{% endif %}#}
+                {% endif %}
+            </div>
+            <div class="thumb" style="background-image:url({{ asset(post.image) }});"> </div>
+            <div class="card-footer">
+                <a class="card-link" href="{{ path("show_post", {slug: post.slug}) }}">Lire cette fiche</a>
+            </div>
+        </div>
+        </div>
+    </article>
+
+    {% endfor %}
+
+</div>
+{% endblock %}

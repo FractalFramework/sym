@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% set minRoleToEdit = 'ROLE_ADMIN' %}
+{% set currentUser = '' %}
+{% if user is defined and user.username is defined %}
+    {% set currentUser = user.username %}
+{% endif %}
+
+{% block title %}Commentaires{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>Tous les commentaires</h1>
+    <table class="table table-hover">
+        <tr class="table-info">
+            <th>id</td>
+            <th>auteur</td>
+            <th>Post</td>
+            <th>contenu</td>
+            <th>Date</td>
+            <th>Action</td>
+            <th>Voir</td>
+        </tr>
+    {% for comment in comments %}
+        {% if is_granted(minRoleToEdit) or comment.username == currentUser %}
+        <tr class="table-light">
+            <td>{{comment.id}}</td>
+            <td>{{comment.username}}</td>
+            <td>{{comment.postTitle}}</td>
+            <td>{{comment.content | raw}}</td>
+            <td>{{comment.date | date("d/m/Y")}}</td>
+            <td>
+            {% if (comment.status == 1) %}
+            <a class="btn btn-success" href="{{ path("admin_commentsId", {"id": comment.id }) }}">Publié</a>
+            {% else %}
+            <a class="btn btn-warning" href="{{ path("admin_commentsId", {"id": comment.id }) }}">Dépublié</a>
+            {% endif %}
+            </td>
+            <td>
+            <a class="btn btn-primary" href="{{ path("show_post", {"slug": comment.postSlug }) }}">Afficher</a>
+            </td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+    </table>
+</div>
+{% endblock %}

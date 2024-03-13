@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% form_theme formPost 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Nouveau Post{% endblock %}
+
+{% block body %}
+
+    <h1>Nouveau Post</h1>
+    <main role="main">
+        <div class="card border-light mb-3">
+            <div class="card-header">
+            Edition du contenu
+            </div>
+            <div class="card-body">
+
+            {% for message in app.flashes('ok_edit') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+            {% endfor %}
+
+            <!-- form -->
+            {{ form_start(formPost) }}
+            <button type="submit" class="btn btn-success">Enregistrer</button>
+            <a class="btn btn-secondary" href="{{ path("app_admin") }}">Retour à l'admin</a>
+            {{ form_row(formPost.title, {"attr":{"placeholder":"Titre"}}) }}
+            {{ form_row(formPost.content, {"attr":{"placeholder":"Contenu"}}) }}
+            {{ form_row(formPost.image, {"attr":{"placeholder":"Image (Url)"}}) }}
+            {{ form_row(formPost.video) }}
+            {{ form_row(formPost.media) }}
+            {{ form_end(formPost) }}
+            </div>
+        </div>
+    </main>
+{% endblock %}

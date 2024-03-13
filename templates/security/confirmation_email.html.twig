@@ -1,0 +1,11 @@
+<h1>SnowPosts : nouveau membre</h1>
+
+<p>
+    Merci de confirmer votre E-mail en cliquant sur le lien suivant: <br><br>
+    <a href="{{ signedUrl|raw }}">Confirm my Email</a>.
+    Ce lien expire dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+</p>
+
+<p>
+    Bienvenue !
+</p>

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% set minRoleToEdit = 'ROLE_ADMIN' %}
+{% set currentUser = '' %}
+{% if user is defined and user.username is defined %}
+    {% set currentUser = user.username %}
+{% endif %}
+
+{% block title %}Posts!{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>All of Posts</h1>
+    <table class="table table-hover">
+        <tr class="table-info">
+            <th>id</td>
+            <th>titre</td>
+            <th>auteur</td>
+            <th>Date création</td>
+            <th>Dernière modification</td>
+            <th>Action</td>
+            <th>Voir</td>
+        </tr>
+    {% for post in posts %}
+        {% if is_granted(minRoleToEdit) or post.username == currentUser  %}
+        <tr class="table-light">
+            <td>{{post.id}}</td>
+            <td>{{post.username}}</td>
+            <td>{{post.title | raw}}</td>
+            <td>{{post.CreatedAt | date("d/m/Y") }}</td>
+            <td>{{post.UpdatedAt | date("d/m/Y")}}</td>
+            <td>
+            {% if (post.status == 1) %}
+            <a class="btn btn-success" href="{{ path("admin_postsId", {"id": post.id }) }}">Publié</a>
+            {% else %}
+            <a class="btn btn-warning" href="{{ path("admin_postsId", {"id": post.id }) }}">Dépublié</a>
+            {% endif %}
+            </td>
+            <td>
+            <a class="btn btn-primary" href="{{ path("show_post", {"slug": post.slug }) }}">Afficher</a>
+            </td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+    </table>
+</div>
+{% endblock %}

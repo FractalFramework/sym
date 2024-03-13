@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+
+    <h1>Connexion</h1>
+
+    <div class="form-group">
+    
+    <!-- flash from register -->
+    {% for message in app.flashes('flash-register') %}
+    <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    <!-- flash from verify email -->
+    {% for flash_valid in app.flashes('login-error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_valid }}</div>
+    {% endfor %}
+    {% for flash_valid in app.flashes('login-success') %}
+        <div class="alert alert-success" role="alert">{{ flash_valid }}</div>
+    {% endfor %}
+    
+    <!-- success login -->
+    {% if app.user %}
+        <div class="alert alert-success">
+            Bienvenue {{ app.user.username }}
+        </div>
+        <p><a class="btn btn-primary" href="{{ path("app_logout") }}">Déconnexion</a></p>
+        
+    {% else %}
+    <form action="{{ path('app_login') }}" method="post">
+    
+        <div class="form-group mb-3">
+            <label for="username" class="form-label">Nom d'utilisateur</label>
+            <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}">
+        </div>
+        <div class="form-group mb-3">
+            <label for="password" class="form-label">Mot de passe</label>
+            <input type="password" class="form-control" id="password" name="_password">
+        </div>
+
+        <button type="submit" class="btn btn-secondary">Se connecter</button>
+        
+        <a href="{{ path('app_register') }}" class="btn btn-primary">Nouvel utilisateur</a>
+        <a href="{{ path('app_forgot_password_request') }}" class="btn btn-primary">Mot de passe oublié</a>
+
+    </form>
+
+    {% endif %}
+
+    </div>
+{% endblock %}

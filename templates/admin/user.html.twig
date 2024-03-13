@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue {{ app.user.username }}{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>Profile</h1>
+    
+    <article class="card border-light mb-3">
+        <div class="card-header">
+            <div class="metadata"><img src="{{ asset("/avatars/" ~ app.user.avatar) }}" width="240px" /></div>
+            <h3>{{ app.user.username | raw}}</h3>
+        </div>
+        <div class="card-boby">
+        <div class="content">
+        {% block avatar %}
+            <a class="btn btn-secondary" href="{{ path("admin_avatar") }}"><i class="bi bi-person-badge"></i> Modifier son avatar</a>
+        {% endblock %}
+        </div>
+        <div class="card-body content">
+            <div class="card-subtitle">Email : {{ app.user.email }}</div>
+        </div>
+        <div class="card-body">
+            <a class="btn btn-warning" href="{{ path("app_forgot_password_request") }}"><i class="bi bi-person-badge"></i> Changer le mot de passe</a>
+            <a class="btn btn-danger" href="{{ path("app_logout") }}">Déconnexion</a>
+        </div>
+    </article>
+
+</div>
+{% endblock %}

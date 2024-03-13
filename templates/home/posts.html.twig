@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+{% set minRoleToEdit = 'ROLE_ADMIN' %}
+{% set currentUser = '' %}
+{% if user is defined and user.username is defined %}
+    {% set currentUser = user.username %}
+{% endif %}
+
+{% block title %}Posts!{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12 col-12">
+    <h1>{{ pageTitle }}</h1>
+    <h4>{{ nbOfPosts }} Posts référencés</h4>
+
+    {% for post in posts %}
+    
+    <article class="card border-light mb-3">
+        <div class="card mb-3">
+            <!-- header -->
+            <h3 class="card-header">{{ post.title | raw}}</h3>
+            <div class="card-body">
+                <h5 class="card-title">Rédigé par : {{ post.username }}</h5>
+                <h6 class="card-subtitle text-muted">Mis à jour le : {{ post.updatedAt | date("d/m/Y") }}</h6>
+            </div>
+            
+            <!-- edit buttons -->
+            <div class="card-footer">
+                {% if is_granted(minRoleToEdit) or post.username == currentUser %}
+                    <h6><a class="card-link" href="{{ path("edit_post", {id: post.id}) }}"><i class="bi bi-pencil"></i> Editer</a></h6>
+                        {% if post.status == 1 %}
+                        <h6><a class="card-link" href="{{ path("admin_postsId", {id: post.id}) }}"><i class="bi bi-trash"></i> Supprimer</a></h6>
+                        {% else %}
+                        <h6><a class="card-link" href="{{ path("admin_postsId", {id: post.id}) }}"><i class="bi bi-eraser"></i> Publier</a></h6>
+                        {% endif %}
+                {% endif %}
+            </div>
+            
+            <!-- hero image -->
+            {% if post.image == 'http://placehold.it/600x200' %}
+            <img src="{{ post.image }}" width="100%"/>
+            {% else %}
+            <img src="{{ asset(post.image) }}" width="100%"/>
+            {% endif %}
+            
+            <!-- goto -->
+            <div class="card-body">
+                <a class="card-link" href="{{ path("show_post", {slug: post.slug}) }}">Lire cette fiche</a>
+            </div>
+            
+            <!-- tags -->
+            <div class="card-footer text-muted">
+            Tags : 
+            {% for postTag in post.postTags %}
+                <a class="card-link" href="{{ path("show_tag", {id: postTag.tag.id}) }} ">{{ postTag.tag.cat.name }} : {{ postTag.tag.name }}</a> 
+            {% endfor %}
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+    
+    <div>
+        <ul class="pagination pagination-lg align-center">
+            <li class="page-item">
+        {% if previous >= 0 %}
+            <a class="page-link" href="{{ path('app_posts', {'offset': previous}) }}">&laquo;</a>
+        {% else %}
+            <a class="page-link disabled" href="#">&laquo;</a>
+        {% endif %}
+            </li>
+            {% for key,numPage in arrayPages %}
+                {% if numPage == page %}
+            <li class="page-item active">
+                {% else %}
+            <li class="page-item">
+                {% endif %}
+            <a class="page-link" href="{{ path('app_posts', {'offset': numPage}) }}">{{ key+1 }}</a>
+            </li>
+            {% endfor %}
+            <li class="page-item">
+        {% if next < nbOfPosts %}
+            <a class="page-link" href="{{ path('app_posts', {'offset': next}) }}">&raquo;</a>
+        {% else %}
+            <a class="page-link disabled" href="#">&raquo;</a>
+        {% endif %}
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

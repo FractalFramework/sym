@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Refaire son mot de passe{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+    {% for flash_valid in app.flashes('reset_password_valid') %}
+        <div class="alert alert-success" role="alert">{{ flash_valid }}</div>
+    {% endfor %}
+    <h1>Changer son mot de passe</h1>
+
+    {{ form_start(requestForm) }}
+        {{ form_row(requestForm.email) }}
+        <div>
+            <small>
+                Entrez votre adresse, et un e-mail vous sera envoyé pour refaire un nouveau mot de passe.
+            </small>
+        </div>
+
+        <button class="btn btn-primary">Envoyez-moi un e-mail !</button>
+    {{ form_end(requestForm) }}
+{% endblock %}
