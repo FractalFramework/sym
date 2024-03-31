@@ -92,9 +92,9 @@ The user can :
 - import and use images
 - set a serie of Tags for his Post
 - set the Home prevalent image for the Post
-- publish some commentarieson all Posts
+- publish some trackarieson all Posts
 - edit or unpublish a Post
-- publish or unpublish some comments
+- publish or unpublish some tracks
 - choose an avatar for his profile
 - change his password
 - recover his account

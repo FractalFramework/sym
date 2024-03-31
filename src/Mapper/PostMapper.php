@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Mapper;
 
-use App\Mapper\CommentMapper;
+use App\Mapper\TrackMapper;
 use App\Mapper\MediaMapper;
 use App\Mapper\PostTagsMapper;
 use App\Mapper\TagMapper;
@@ -14,7 +14,7 @@ use App\Entity\Post;
 class PostMapper
 {
     public function __construct(
-        private CommentMapper $commentMapper,
+        private TrackMapper $trackMapper,
         private PostTagsMapper $postTagsMapper,
         private MediaMapper $mediaMapper,
         private TagMapper $tagMapper,

@@ -8,21 +8,21 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Entity\Comment;
+use App\Entity\Track;
 use App\Entity\Post;
 use App\Entity\User;
 
-class CommentRepository extends ServiceEntityRepository
+class TrackRepository extends ServiceEntityRepository
 {
 
     public function __construct(
         ManagerRegistry $registry,
         private EntityManagerInterface $manager
     ) {
-        parent::__construct($registry, Comment::class);
+        parent::__construct($registry, Track::class);
     }
 
-    public function getCommentsPaginator(Post $post, int $offset, int $maxResults): Paginator
+    public function getTracksPaginator(Post $post, int $offset, int $maxResults): Paginator
     {
         $query = $this->createQueryBuilder('c')
             ->andWhere('c.post = :post')
@@ -59,9 +59,9 @@ class CommentRepository extends ServiceEntityRepository
         ;
     }
 
-    public function saveComment(Comment $comment): void
+    public function saveTrack(Track $track): void
     {
-        $this->getEntityManager()->persist($comment);
+        $this->getEntityManager()->persist($track);
         $this->getEntityManager()->flush();
     }
 

@@ -19,7 +19,7 @@ class PostModel
     private DateTime $createdAt;
     private DateTime $updatedAt;
     private User $user;
-    private array $comments;
+    private array $tracks;
     private array $postTags;
     private array $media;
 
@@ -133,14 +133,14 @@ class PostModel
         return $this;
     }
 
-    public function getComments(): array
+    public function getTracks(): array
     {
-        return $this->comments;
+        return $this->tracks;
     }
 
-    public function setComments(array $comments): static
+    public function setTracks(array $tracks): static
     {
-        $this->comments = $comments;
+        $this->tracks = $tracks;
         return $this;
     }
 

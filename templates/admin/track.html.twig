@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% set minRoleToEdit = 'ROLE_ADMIN' %}
+{% set currentUser = '' %}
+{% if user is defined and user.username is defined %}
+    {% set currentUser = user.username %}
+{% endif %}
+
+{% block title %}Trackaires{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>Tous les trackaires</h1>
+    <table class="table table-hover">
+        <tr class="table-info">
+            <th>id</td>
+            <th>auteur</td>
+            <th>Post</td>
+            <th>contenu</td>
+            <th>Date</td>
+            <th>Action</td>
+            <th>Voir</td>
+        </tr>
+    {% for track in tracks %}
+        {% if is_granted(minRoleToEdit) or track.username == currentUser %}
+        <tr class="table-light">
+            <td>{{track.id}}</td>
+            <td>{{track.username}}</td>
+            <td>{{track.postTitle}}</td>
+            <td>{{track.content | raw}}</td>
+            <td>{{track.date | date("d/m/Y")}}</td>
+            <td>
+            {% if (track.status == 1) %}
+            <a class="btn btn-success" href="{{ path("admin_tracksId", {"id": track.id }) }}">Publié</a>
+            {% else %}
+            <a class="btn btn-warning" href="{{ path("admin_tracksId", {"id": track.id }) }}">Dépublié</a>
+            {% endif %}
+            </td>
+            <td>
+            <a class="btn btn-primary" href="{{ path("show_post", {"slug": track.postSlug }) }}">Afficher</a>
+            </td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+    </table>
+</div>
+{% endblock %}

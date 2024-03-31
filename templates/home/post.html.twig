@@ -59,37 +59,37 @@
         </div>
     </article>
 
-    <!-- comments -->
-    <h3>{{ nbOfComments }} Commentaires</h3>
+    <!-- tracks -->
+    <h3>{{ nbOfTracks }} Trackaires</h3>
 
-    {% for message in app.flashes('thanks_comment') %}
+    {% for message in app.flashes('thanks_track') %}
     <div class="alert alert-success">{{ message }}</div> 
     {% endfor %}
 
     {% if app.user %}
     <div class="form-floating mb-3 alert alert-primary">
-        {{ form_start(formComment) }}
-        {{ form_row(formComment.content, {"attr":{"placeholder":"Comentaire...", "class":"form-control"}}) }}
+        {{ form_start(formTrack) }}
+        {{ form_row(formTrack.content, {"attr":{"placeholder":"Comentaire...", "class":"form-control"}}) }}
         <button type="submit" class="btn btn-success">Envoyer</button>
-        {{ form_end(formComment) }}
+        {{ form_end(formTrack) }}
     </div>
     {% else %}
         <div class="text-body-primary alert alert-secondary">
-            Vous devez être logué pour poster un commentaire. 
+            Vous devez être logué pour poster un trackaire. 
             <a class="nav-link" href="{{ path("app_login") }}">Connexion</a> 
         </div>
     {% endif %}
 
-    {% for comment in comments %}
+    {% for track in tracks %}
         <section class="card text-white bg-primary mb-3">
             <div class="card-header">
-                <img src="{{ asset(comment.avatar) }}" width="48px"/>
-                <strong>{{ comment.username | raw}}</strong> - 
-                <small>{{ comment.date | date("d/m/Y") }}</small>
+                <img src="{{ asset(track.avatar) }}" width="48px"/>
+                <strong>{{ track.username | raw}}</strong> - 
+                <small>{{ track.date | date("d/m/Y") }}</small>
             </div>
             <div class="card-boby">
                 <div class="content">
-                    <div class="text-body-primary">{{ comment.content | raw}}</div>
+                    <div class="text-body-primary">{{ track.content | raw}}</div>
                 </div>
             </div>
         </section>
@@ -118,7 +118,7 @@
             </li>
         {% endfor %}
             <li class="page-item">
-        {% if next < nbOfComments %}
+        {% if next < nbOfTracks %}
             <a class="page-link" href="{{ path("show_post", {"slug": post.slug, 'offset': next }) }}">&raquo;</a>
         {% else %}
             <a class="page-link disabled" href="#">&raquo;</a>

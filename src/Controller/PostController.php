@@ -11,14 +11,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\PostTagsService;
 use App\Service\PostService;
-use App\Service\CommentService;
+use App\Service\TrackService;
 use App\Service\MediaService;
 use App\Service\FileUploader;
 use App\Service\CatService;
-use App\Model\CommentModel;
+use App\Model\TrackModel;
 use App\Form\PostFormType;
 use App\Form\PostTagsFormType;
-use App\Form\CommentFormType;
+use App\Form\TrackFormType;
 use App\Entity\Post;
 
 class PostController extends AbstractController
@@ -28,10 +28,10 @@ class PostController extends AbstractController
         private CatService $catService,
         private PostService $postService,
         private MediaService $mediaService,
-        private CommentService $commentService,
+        private TrackService $trackService,
         private PostTagsService $postTagsService,
         private PostFormType $postFormType,
-        private CommentFormType $commentFormType,
+        private TrackFormType $trackFormType,
         private PostTagsFormType $postTagsFormType,
         private SluggerInterface $slugger,
     ) {
@@ -194,16 +194,16 @@ class PostController extends AbstractController
     {
         $userConnected = $this->getUser();
         $postModel = $this->postService->getBySlug($slug);
-        $formComment = $this->createForm(CommentFormType::class, new CommentModel());
-        $formComment->handleRequest($request);
+        $formTrack = $this->createForm(TrackFormType::class, new TrackModel());
+        $formTrack->handleRequest($request);
 
-        //save comment
-        if ($formComment->isSubmitted() && $formComment->isValid() && $userConnected) {
+        //save track
+        if ($formTrack->isSubmitted() && $formTrack->isValid() && $userConnected) {
             $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');//is loged
-            $this->commentService->saveComment($formComment, $post, $this->getUser());
+            $this->trackService->saveTrack($formTrack, $post, $this->getUser());
             $this->addFlash(
-                'thanks_comment',
-                'Votre commentaire est publié ! Merci.'
+                'thanks_track',
+                'Votre trackaire est publié ! Merci.'
             );
             return $this->redirectToRoute('show_post', ['slug' => $post->getSlug()]);
         }
@@ -211,13 +211,13 @@ class PostController extends AbstractController
         //format content
         $root_img = $this->getParameter('post_medias');
 
-        //comments_pagination
-        $limit = $this->commentService::PAGINATOR_PER_PAGE;
+        //tracks_pagination
+        $limit = $this->trackService::PAGINATOR_PER_PAGE;
         $offset = max(0, $request->query->getInt('offset', 0));
-        $comments = $this->commentService->getCommentsPaginator($post, $offset);
-        $nbOfComments = $this->commentService->getNumberOfCommentsByPosts($post);
-        $nbOfPages = (int) ceil($nbOfComments / $limit);
-        $arrayPages = $this->commentService->getPaginationArrayButtons($nbOfPages);
+        $tracks = $this->trackService->getTracksPaginator($post, $offset);
+        $nbOfTracks = $this->trackService->getNumberOfTracksByPosts($post);
+        $nbOfPages = (int) ceil($nbOfTracks / $limit);
+        $arrayPages = $this->trackService->getPaginationArrayButtons($nbOfPages);
 
         if ($post->getStatus() == 1) {
             $template = 'home/post.html.twig';
@@ -228,14 +228,14 @@ class PostController extends AbstractController
             $template,
             [
                 'post' => $postModel,
-                'comments' => $comments,
-                'formComment' => $formComment->createView(),
+                'tracks' => $tracks,
+                'formTrack' => $formTrack->createView(),
                 'root_img' => $root_img,
                 'user' => $this->getUser(),
                 'previous' => $offset - $limit,
                 'next' => $offset + $limit,
                 'arrayPages' => $arrayPages,
-                'nbOfComments' => $nbOfComments,
+                'nbOfTracks' => $nbOfTracks,
                 'pages' => $nbOfPages,
                 'page' => $offset,
             ]

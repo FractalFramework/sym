@@ -9,7 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Service\FixturesService;
-use App\Entity\Comment;
+use App\Entity\Track;
 use App\Entity\Media;
 use App\Entity\MediaType;
 use App\Entity\Post;
@@ -133,18 +133,18 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    public function comments(ObjectManager $manager): void
+    public function tracks(ObjectManager $manager): void
     {
         for ($i = 0; $i < $this->fixturesService->numberOfPosts(); $i++) {
-            for ($j = 0; $j < $this->fixturesService->numberOfComments(); $j++) {
-                $comments = new Comment();
-                $comments
+            for ($j = 0; $j < $this->fixturesService->numberOfTracks(); $j++) {
+                $tracks = new Track();
+                $tracks
                     ->setPost($this->objects['post'][$i])
                     ->setUser($this->randomObject('user'))
                     ->setContent($this->fixturesService->faker->paragraphs(mt_rand(1, 3), true))
                     ->setStatus(1)
                     ->setDate($this->fixturesService->generateRandomDateFrom());
-                $manager->persist($comments);
+                $manager->persist($tracks);
             }
         }
         $manager->flush();
@@ -192,7 +192,7 @@ class AppFixtures extends Fixture
         $this->posts($manager);
         $this->mediaTypes($manager);
         $this->medias($manager);
-        $this->comments($manager);
+        $this->tracks($manager);
         $this->tags($manager);
         $this->postTags($manager);
     }

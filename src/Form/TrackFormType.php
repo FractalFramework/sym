@@ -9,14 +9,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use App\Model\CommentModel;
+use App\Model\TrackModel;
 
-class CommentFormType extends AbstractType
+class TrackFormType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => CommentModel::class,
+            'data_class' => TrackModel::class,
         ]);
     }
 
@@ -30,7 +30,7 @@ class CommentFormType extends AbstractType
                     'attr' => [
                         'class' => 'form-control w-lg-75 m-auto'
                     ],
-                    'label' => 'Poster un commentaire :'
+                    'label' => 'Poster un trackaire :'
                 ]
             )
             ->add('postId', HiddenType::class, ['mapped' => false])

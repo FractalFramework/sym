@@ -24,7 +24,7 @@ class FixturesService
     private string $password = 'd';
     private int $numberOfPosts = 1;
     private int $numberOfUsers = 1;
-    private int $numberOfComments = 1;
+    private int $numberOfTracks = 1;
     public array $users = [];
     public array $posts = [];
 
@@ -77,9 +77,9 @@ class FixturesService
         return $this->numberOfUsers;
     }
 
-    public function numberOfComments()
+    public function numberOfTracks()
     {
-        return $this->numberOfComments;
+        return $this->numberOfTracks;
     }
 
     public function adminName()

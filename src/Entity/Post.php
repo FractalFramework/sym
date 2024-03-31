@@ -6,7 +6,7 @@ namespace App\Entity;
 
 use DateTime;
 use App\Entity\User;
-use App\Entity\Comment;
+use App\Entity\Track;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PostRepository;
@@ -25,7 +25,7 @@ class Post
 
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
+        $this->tracks = new ArrayCollection();
         $this->media = new ArrayCollection();
         $this->postTags = new ArrayCollection();
     }
@@ -64,8 +64,8 @@ class Post
 
     //relations
 
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post', orphanRemoval: true)]
-    private Collection $comments;
+    #[ORM\OneToMany(targetEntity: Track::class, mappedBy: 'post', orphanRemoval: true)]
+    private Collection $tracks;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
@@ -169,26 +169,26 @@ class Post
 
     //relations functions
 
-    public function getComments(): Collection
+    public function getTracks(): Collection
     {
-        return $this->comments;
+        return $this->tracks;
     }
 
-    public function addComment(Comment $comment): static
+    public function addTrack(Track $track): static
     {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
-            $comment->setPost($this);
+        if (!$this->tracks->contains($track)) {
+            $this->tracks->add($track);
+            $track->setPost($this);
         }
         return $this;
     }
 
-    public function removeComment(Comment $comment): static
+    public function removeTrack(Track $track): static
     {
-        if ($this->comments->removeElement($comment)) {
+        if ($this->tracks->removeElement($track)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getPost() === $this) {
-                $comment->setPost(null);
+            if ($track->getPost() === $this) {
+                $track->setPost(null);
             }
         }
         return $this;

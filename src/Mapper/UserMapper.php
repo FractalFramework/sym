@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Mapper;
 
-use App\Mapper\CommentMapper;
+use App\Mapper\TrackMapper;
 use App\Model\UserModel;
 use App\Entity\User;
 
@@ -12,7 +12,7 @@ class UserMapper
 {
 
     public function __construct(
-        private CommentMapper $commentMapper
+        private TrackMapper $trackMapper
     ) {
 
     }

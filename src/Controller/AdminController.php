@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Form\AvatarFormType;
 use App\Service\UserService;
 use App\Service\PostService;
-use App\Service\CommentService;
+use App\Service\TrackService;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ class AdminController extends AbstractController
         private Security $security,
         private UserService $userService,
         private PostService $postService,
-        private CommentService $commentService,
+        private TrackService $trackService,
     ) {
     }
 
@@ -40,21 +40,21 @@ class AdminController extends AbstractController
         );
     }
 
-    #[Route('/admin/comments', name: 'admin_comments')]
-    #[Route('/admin/comments/{id}', name: 'admin_commentsId')]
-    public function showComments(int $id = null): Response
+    #[Route('/admin/tracks', name: 'admin_tracks')]
+    #[Route('/admin/tracks/{id}', name: 'admin_tracksId')]
+    public function showTracks(int $id = null): Response
     {
         $userConnected = $this->getUser();
         if ($id && $this->security->isGranted('ROLE_ADMIN')) {
-            $this->commentService->updateStatus($id);
-            return $this->redirectToRoute('admin_comments');
+            $this->trackService->updateStatus($id);
+            return $this->redirectToRoute('admin_tracks');
         }
-        $commentsModel = $this->commentService->getAllComments();
+        $tracksModel = $this->trackService->getAllTracks();
 
         return $this->render(
-            'admin/comments.html.twig',
+            'admin/tracks.html.twig',
             [
-                'comments' => $commentsModel,
+                'tracks' => $tracksModel,
                 'currentUser' => $this->getUser(),
             ]
         );

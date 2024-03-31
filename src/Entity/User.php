@@ -80,8 +80,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'user')]
     private Collection $posts;
 
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user')]
-    private Collection $comments;
+    #[ORM\OneToMany(targetEntity: Track::class, mappedBy: 'user')]
+    private Collection $tracks;
 
     #[ORM\Column(type: 'boolean')]
     private ?bool $isVerified = false;
@@ -212,26 +212,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getComments(): Collection
+    public function getTracks(): Collection
     {
-        return $this->comments;
+        return $this->tracks;
     }
 
-    public function addComments(Comment $comments): static
+    public function addTracks(Track $tracks): static
     {
-        if (!$this->comments->contains($comments)) {
-            $this->comments->add($comments);
-            $comments->setUser($this);
+        if (!$this->tracks->contains($tracks)) {
+            $this->tracks->add($tracks);
+            $tracks->setUser($this);
         }
         return $this;
     }
 
-    public function removeComments(Comment $comments): static
+    public function removeTracks(Track $tracks): static
     {
-        if ($this->comments->removeElement($comments)) {
+        if ($this->tracks->removeElement($tracks)) {
             // set the owning side to null (unless already changed)
-            if ($comments->getUser() === $this) {
-                $comments->setUser(null);
+            if ($tracks->getUser() === $this) {
+                $tracks->setUser(null);
             }
         }
         return $this;

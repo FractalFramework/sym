@@ -2,47 +2,34 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Model;
 
 use DateTime;
-use App\Repository\CommentRepository;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 use App\Entity\User;
 use App\Entity\Post;
 
-#[ORM\Entity(repositoryClass: CommentRepository::class)]
-class Comment
+class TrackModel
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $content = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?DateTime $date = null;
-
-    #[ORM\Column]
-    private ?int $status = null;
-
-    //relations
-
-    #[ORM\ManyToOne(inversedBy: 'comments')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?Post $post = null;
-
-    #[ORM\ManyToOne(inversedBy: 'comments')]
-    #[ORM\JoinColumn(nullable: false)]
-    private User $user;
-
-    //functions
+    private ?User $user = null;
+    private ?string $username = null;
+    private ?string $content = null;
+    private ?DateTime $date = null;
+    private ?int $status = null;
+    private ?string $postSlug = null;
+    private ?string $postTitle = null;
+    private ?string $avatar = null;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): static
+    {
+        $this->id = $id;
+        return $this;
     }
 
     public function getContent(): ?string
@@ -78,8 +65,6 @@ class Comment
         return $this;
     }
 
-    //relations functions
-
     public function getPost(): ?Post
     {
         return $this->post;
@@ -88,7 +73,6 @@ class Comment
     public function setPost(?Post $post): static
     {
         $this->post = $post;
-
         return $this;
     }
 
@@ -100,7 +84,52 @@ class Comment
     public function setUser(?User $user): static
     {
         $this->user = $user;
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(?string $username): static
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    public function getPostSlug(): ?string
+    {
+        return $this->postSlug;
+    }
+
+    public function setPostSlug(?string $postSlug): static
+    {
+        $this->postSlug = $postSlug;
+        return $this;
+    }
+
+    public function getPostTitle(): ?string
+    {
+        return $this->postTitle;
+    }
+
+    public function setPostTitle(?string $postTitle): static
+    {
+        $this->postTitle = $postTitle;
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(string $avatar): static
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
+
 }
