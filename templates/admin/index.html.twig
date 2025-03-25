@@ -20,7 +20,7 @@
             <a class="btn btn-secondary" href="{{ path("new_post") }}"><i class="bi bi-pencil"></i> Nouveau Post</a>
             <a class="btn btn-secondary" href="{{ path("admin_posts") }}"><i class="bi bi-card-checklist"></i> Voir les Posts</a>
                 {% if is_granted('ROLE_ADMIN') %}
-                <a class="btn btn-secondary" href="{{ path("admin_tracks") }}"><i class="bi bi-chat-left-text"></i> Voir les trackaires</a>
+                <a class="btn btn-secondary" href="{{ path("admin_tracks") }}"><i class="bi bi-chat-left-text"></i> Voir les commentaires</a>
                 {% endif %}
             <a class="btn btn-secondary" href="{{ path("admin_avatar") }}"><i class="bi bi-person-badge"></i> Modifier son avatar</a>
             {% endif %}
