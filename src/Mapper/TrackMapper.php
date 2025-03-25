@@ -20,7 +20,7 @@ class TrackMapper
         $trackModel->setStatus($trackEntity->getStatus());
         $trackModel->setPostSlug($trackEntity->getPost()->getSlug());
         $trackModel->setPostTitle($trackEntity->getPost()->getTitle());
-        $trackModel->setAvatar('/avatars/' . $trackEntity->getUser()->getAvatar());
+        $trackModel->setAvatar('/public/avatars/' . $trackEntity->getUser()->getAvatar());
         return $trackModel;
     }
 

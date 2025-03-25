@@ -30,7 +30,7 @@ class PostMapper
         $postModel->setUpdatedAt($postEntity->getUpdatedAt());
         $postModel->setTitle($postEntity->getTitle());
         $postModel->setSlug($postEntity->getSlug());
-        $postModel->setImage('/uploads/' . $postEntity->getImage());
+        $postModel->setImage('/public/uploads/' . $postEntity->getImage());
         $postModel->setStatus($postEntity->getStatus());
         $postModel->setContent($postEntity->getContent());
         $postModel->setMedia($this->mediaMapper->EntitiesToModels($postEntity->getMedia()));
