@@ -24,8 +24,7 @@ class PostRepository extends ServiceEntityRepository
             ->andWhere('t.status = 1')
             ->orderBy('t.id', 'DESC')
             ->setMaxResults($maxResults)
-            ->setFirstResult($offset)
-        ;
+            ->setFirstResult($offset);
         return new Paginator($query);
     }
 
@@ -35,8 +34,7 @@ class PostRepository extends ServiceEntityRepository
             ->select('count(t.id)')
             ->andWhere('t.status = 1')
             ->getQuery()
-            ->getSingleScalarResult()
-        ;
+            ->getSingleScalarResult();
     }
 
     public function findLastsByStatus(): array
@@ -46,8 +44,7 @@ class PostRepository extends ServiceEntityRepository
             ->orderBy('t.id', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     public function findAll(): array
@@ -56,8 +53,7 @@ class PostRepository extends ServiceEntityRepository
             ->orderBy('t.id', 'DESC')
             //->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     public function savePost(Post $post): void

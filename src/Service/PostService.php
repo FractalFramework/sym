@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
+//use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Repository\PostTagsRepository;
 use App\Repository\PostRepository;
@@ -19,7 +19,7 @@ class PostService
 {
 
     public function __construct(
-        private readonly EntityManagerInterface $manager,
+        //private readonly EntityManagerInterface $manager,
         private readonly SluggerInterface $slugger,
         private readonly PostTagsRepository $postTagsRepository,
         private readonly PostRepository $postRepository,
