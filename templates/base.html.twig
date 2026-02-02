@@ -25,21 +25,19 @@
         </style>
         
         <!-- Global Site Tag (gtag.js) - Google Analytics -->
+        <!-- 
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-KGDJBEFF3W"></script>
         <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-KGDJBEFF3W');
-        </script>
+        </script>-->
 
         {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
     <body>

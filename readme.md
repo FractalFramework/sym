@@ -74,7 +74,7 @@ Composer.json:
 - Php-8.4+
 - MariaDb
 
-### Installation
+### Installationc
 
 - Git clone from `/home`. That will create the directory `sym`.
 - Do a `adduser sym` and obtain it's ftp codes.
