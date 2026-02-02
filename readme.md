@@ -71,7 +71,7 @@ Composer.json:
 ## Requirements
 
 - Webserver Apache2
-- Php-8.2+
+- Php-8.4+
 - MariaDb
 
 ### Installation
@@ -83,10 +83,11 @@ Composer.json:
     git clone https://github.com/FractalFramework/sym.git
     composer audit
     composer install
+    composer update
 
 Create your own .env.local, and connect your database:
 
-    DATABASE_URL="mysql://{dbname-root}:{password}@127.0.0.1:3306/sym"
+    DATABASE_URL="mysql://{root}:{password}@127.0.0.1:3306/sym"
 
 And the mailer: 
 
